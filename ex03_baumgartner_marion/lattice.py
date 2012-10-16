@@ -65,13 +65,6 @@ class Lattice:
         #initiate a periodic lattica
         pass
     
-    def plotLattice(self, name, title="image has no title", cmap="flag"): #=mpl.colors.ListedColormap(['Navy','cyan','green']), bounds=[-1.5,-0.5,0.5,1.5]):
-        #defining the color map for the graphIm
-        #norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
-        #plot the lattice
-        pyl.imshow(self.xL, interpolation='nearest',cmap=cmap)#, norm=norm)
-        pyl.title(title)
-        pyl.savefig('%s.png'%(name))
         
     def printLattice(self):
         for i in range(len(self.xL)):
