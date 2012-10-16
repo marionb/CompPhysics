@@ -61,28 +61,33 @@ def HoshenKopelman(lattice):
             #print "m_k[i] is:"
             #print m_k[i]
             num.append(m_k[i])
+    #CALCULATION THE CLUSTER SIZE DISTRIBUTION
+    summe=0 
+    n_s = []
+    s=[]
+    for i in set(num):
+        n_s.append(m_k.count(i))
+        s.append(i)
+        summe+=m_k.count(i)
+        
+    for k in range(len(n_s)):
+        n_s[k]=n_s[k]/float(summe)
     
-    
-    #d = {}        
-    #for i in set(num):
-    #    d[i] = m_k.count(i)
-    return [lattice, num]
+    return [n_s, s, num, lattice]
                         
                         
                         
-p=0.55
-grid=lt.Lattice(500,p)
-grid.initLattice()
-tau=HoshenKopelman(grid.xL)
+p=0.8 #CHANGE TO GET AN OTHER PROBABILITY
+grid1=lt.Lattice(500,p)
+grid1.initLattice()
+tau=HoshenKopelman(grid1.xL)
 
 
-n, bins, patches=plt.hist(tau[1],50,range=None, normed=True, weights=None,
-       cumulative=False, bottom=None, histtype='bar', align='mid',
-       orientation='vertical', rwidth=None, log=False,
-       color=None, label=None,)
+plt.semilogy(tau[1],tau[0],'bo')
+plt.xlabel("s")
+plt.ylabel("log(n_s)")
 
 plt.savefig("%s.png"%(p))
-plt.show()
 
 
 

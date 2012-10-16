@@ -69,3 +69,5 @@ class Lattice:
     def printLattice(self):
         for i in range(len(self.xL)):
             print self.xL[i]
+            
+    
