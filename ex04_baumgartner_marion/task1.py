@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
 
-size=100
+size=50
 ended=0
 grid=lt.Lattice(size,0.592)
 
@@ -23,10 +23,15 @@ while(ended==0):
     tau=grid.determinePercCluster()
     ended=tau[0]
 
-print tau
-grid.printLattice()
+#print "latice information"
+#print tau
+#grid.printLattice()
 
 def sandBox(grid):
+    
+    if(type(grid)!=list):
+        print"the value given is not a matrix"
+        return 0
     #find center of grid -> grid hass to be a square else it will not work!
     x_mid=len(grid)/2
 
@@ -49,14 +54,27 @@ def sandBox(grid):
     return m
 
 print "sandbox result"
+
 tau_sb=sandBox(grid.xL)
-print tau_sb
-x=np.log(tau_sb[0])
-y=np.log(tau_sb[1])
-slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
-print "Gradient and intercept", slope, intercept
-plt.plot(x, intercept + slope*x, 'r-')
-plt.loglog(tau_sb[0], tau_sb[1],'bo')
-plt.xlabel("log(R)")
-plt.ylabel("log(M(R))")
-plt.savefig("test.png")
+if(tau_sb!=0):
+    grid.plotLattice(tau[1],"","lattice50") #this gives a warning because he does not like nonelinear color scales but it does the job (a bit ugly but oh well)
+    print "sndbox tau"
+    print tau_sb
+    x=np.log(tau_sb[0])
+    y=np.log(tau_sb[1])
+    #print x
+    #print y
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+    
+    print "Gradient and intercept", slope, intercept
+    #plt.plot(x,y,'g+')
+    #plt.plot(x, intercept + slope*x, 'r-')
+    plt.loglog(tau_sb[0], tau_sb[1],'bo', label=b'calculated Data')
+    plt.loglog(np.exp(x),np.exp(slope*x+intercept),'r-',label=r'$y=%g + %g x$'%(intercept, slope))
+    plt.xlabel("$\log(R)$")
+    plt.ylabel("$\log(M(R))$")
+    plt.legend(loc='lower right')
+    plt.grid(True)
+    plt.savefig("size50.png")
+else:
+    print "this progtam failed try again!!"

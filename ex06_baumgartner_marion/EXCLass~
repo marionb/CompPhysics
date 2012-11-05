@@ -1,0 +1,32 @@
+Exercise 6, October 30, 2012 (ex06)
+Ising Model
+
+
+E=-J sum{S_i S_j} (1)
+
+S_i and S_j => \pm 1 plus minuas spin
+
+M=sum_i{s_i}
+
+m=M/N and e=E/N
+
+
+Implement simple model with Metropolis Alg. ->study equil properties
+
+
+lattice as in percolation but instead of 0 and 1 we hve -1 and 1
+
+Test posibility of changing the spin. -> consider the contribution to the energy of neighbouring spins. 
+
+calculate \DeltaE=E_{final} -E_{init} using (1)
+
+
+\Delta E<=0	=>	accept flip with prob. p=1
+\Delta E>0	=>	accept flip with prob.p=exp(-\Delta E/K_B T)
+
+Do this itterativly
+
+Do N Montecarlo steps N=number of spins in the system
+
+
+For different T (Temp) calculate average 

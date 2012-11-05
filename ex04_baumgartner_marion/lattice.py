@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt
 
 
 class Lattice:
+    st=0
     N=0
     p=0
     seed=0
@@ -90,8 +91,8 @@ class Lattice:
                             self.xL[x][y]==3 #the tree is burned
                             if(self.xL[x+1][y]==-1 and pathLen==0):#we reached the other end now we can deterine the shorst path with the amunt of stepps we took
                                 pathLen=stepps-1
-                                print "the end has been reached the first time"
-                                print pathLen
+#                                print "the end has been reached the first time"
+#                                print pathLen
                             if(self.xL[x+1][y]==1):
                                 updates+=1
                                 self.xL[x+1][y]=stepps
@@ -112,5 +113,15 @@ class Lattice:
                     break
             if(pathLen!=0):
                 break #we found a percolation cluster and we can stop
+                #define new colormap where burned trees are marked black
         return [pathLen , stepps-1, clustSize]
     
+    
+    def plotLattice(self, stepps ,title="", name="test"):
+        #define new colormap where burned trees are marked black
+        cmap = mpl.colors.ListedColormap(['white','cyan','green','black'])
+        bounds=[-1.5,-0.5,0.5,1.5,stepps]#<- warning is generated here!!!
+        norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+        pyl.imshow(self.xL, interpolation='nearest',cmap=cmap, norm=norm)
+        pyl.title(title)
+        pyl.savefig('%s.png'%(name))
