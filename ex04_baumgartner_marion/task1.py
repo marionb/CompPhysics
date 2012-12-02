@@ -77,4 +77,4 @@ if(tau_sb!=0):
     plt.grid(True)
     plt.savefig("size50.png")
 else:
-    print "this progtam failed try again!!"
+    print "this program failed try again!!"

@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import random as rand
 
 
+
 x=[0]
 y=[0]
 def fun(n):
